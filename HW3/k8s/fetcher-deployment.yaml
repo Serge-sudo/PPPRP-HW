@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fetcher-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fetcher
+  template:
+    metadata:
+      labels:
+        app: fetcher
+    spec:
+      containers:
+      - name: fetcher
+        image: fetcher:latest
+        imagePullPolicy: Never
+        volumeMounts:
+        - name: log-volume
+          mountPath: /data
+      volumes:
+      - name: log-volume
+        hostPath:
+          path: /var/log/fetcher
+          type: DirectoryOrCreate
