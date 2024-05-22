@@ -1,6 +1,7 @@
 #!/bin/bash
 
 cd app
+eval $(minikube docker-env) 
 docker build -t time-app .
 
 cd ../script

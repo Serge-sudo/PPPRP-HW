@@ -1,7 +1,7 @@
 import requests
 import time
 
-while True:
+for i in range(12):
     try:
         response = requests.get('http://time-service.default.svc.cluster.local:5000/statistics')
         with open('/data/logfile.log', 'w') as file:
