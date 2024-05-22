@@ -16,7 +16,7 @@ cd ..
 curl -L https://istio.io/downloadIstio | ISTIO_VERSION=$ISTIO_VERSION sh -
 cd istio-$ISTIO_VERSION
 export PATH=$PWD/bin:$PATH
-istioctl install --set profile=default --set values.global.proxy.autoInject=enabled -y
+istioctl install --set profile=default --set values.global.proxy.autoInject=enabled --set meshConfig.outboundTrafficPolicy.mode=REGISTRY_ONLY -y
 kubectl label namespace default istio-injection=enabled
 
 cd ../k8s
