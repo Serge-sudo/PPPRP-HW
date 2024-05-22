@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: fetcher-cronjob
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: fetcher
+        spec:
+          containers:
+          - name: fetcher
+            image: fetcher:latest
+            imagePullPolicy: Never
+            volumeMounts:
+            - name: log-volume
+              mountPath: /data
+          restartPolicy: OnFailure
+          volumes:
+          - name: log-volume
+            hostPath:
+              path: /var/log/fetcher
+              type: DirectoryOrCreate

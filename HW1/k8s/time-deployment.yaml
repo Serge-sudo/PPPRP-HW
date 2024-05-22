@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: time-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: time
+  template:
+    metadata:
+      labels:
+        app: time
+    spec:
+      containers:
+      - name: time-app
+        image: time-app:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: time-service
+spec:
+  type: ClusterIP
+  selector:
+    app: time
+  ports:
+  - protocol: TCP
+    port: 5000
+    targetPort: 5000
